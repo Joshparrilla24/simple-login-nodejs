@@ -1,18 +1,18 @@
-var express = require('express');
-var path = require('path');
-var favicon = require('serve-favicon');
-var logger = require('morgan');
-var cookieParser = require('cookie-parser');
-var bodyParser = require('body-parser');
-var session = require('express-session');
-var mysql = require('mysql');
-var sess = req.session;  //initialize session variable
+var express = require('express'),
+    path = require('path'),
+    favicon = require('serve-favicon'),
+    logger = require('morgan'),
+    cookieParser = require('cookie-parser'),
+    bodyParser = require('body-parser'),
+    session = require('express-session'),
+    mysql = require('mysql');
+// var sess = req.session;  //initialize session variable
 
-req.session.userId = results[0].id; //set user id
-req.session.user = results[0];//set user name
+// req.session.userId = results[0].id; //set user id
+// req.session.user = results[0];//set user name
 
-var index = require('./routes/index');
-var users = require('./routes/users');
+var index = require('./routes/index'),
+    users = require('./routes/users');
 
 var app = express();
 
@@ -49,11 +49,11 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
-app.use(session({
-  secret: 'keyboard cat',
-  resave: false,
-  saveUninitialized: true,
-  cookie: { maxAge: 60000 }
-}));
+// app.use(session({
+//   secret: 'keyboard cat',
+//   resave: false,
+//   saveUninitialized: true,
+//   cookie: { maxAge: 60000 }
+// }));
 
 module.exports = app;
