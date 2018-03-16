@@ -5,7 +5,9 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var session = require('express-session');
+var mysql = require('mysql');
 var sess = req.session;  //initialize session variable
+
 req.session.userId = results[0].id; //set user id
 req.session.user = results[0];//set user name
 
