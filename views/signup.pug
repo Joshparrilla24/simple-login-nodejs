@@ -15,7 +15,7 @@ html(lang='en')
           .panel-body
             form.form-horizontal(role='form', method='post', action='/signup', onsubmit='return checkblank(this);')
                 if (message.length > 0)
-                  .alert.alert-success.col-sm-12
+                  .alert.alert-success.col-sm-12 message
               #signupalert.alert.alert-danger(style='display:none')
                 p Error:
                 span
