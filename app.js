@@ -6,10 +6,15 @@ var express = require('express'),
     bodyParser = require('body-parser'),
     session = require('express-session'),
     mysql = require('mysql');
-// var sess = req.session;  //initialize session variable
 
-// req.session.userId = results[0].id; //set user id
-// req.session.user = results[0];//set user name
+var connection = mysql.createConnection({
+  host     : 'localhost',
+  user     : 'root',
+  password : 'ubuntu',
+  database : 'nodejstest'
+});
+
+connection.connect();
 
 var index = require('./routes/index'),
     users = require('./routes/users');
@@ -27,6 +32,13 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(session({
+  secret: 'keyboard cat',
+  resave: false,
+  saveUninitialized: true,
+  cookie: { maxAge: 60000 }
+}));
+
 
 app.use('/', index);
 app.use('/users', users);
@@ -48,12 +60,5 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
-
-// app.use(session({
-//   secret: 'keyboard cat',
-//   resave: false,
-//   saveUninitialized: true,
-//   cookie: { maxAge: 60000 }
-// }));
 
 module.exports = app;
