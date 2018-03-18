@@ -2,7 +2,6 @@ var mysql = require('mysql');
 var settings = require('./settings');
 var db;
 
-
 //create mysql connection
 function connectDb(){
     if(!db){
@@ -13,10 +12,8 @@ function connectDb(){
             }else{
                 console.log("Error connecting to Database");
             }
-
         })
     }
     return db;
 }
-
 module.exports = connectDb();
