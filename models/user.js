@@ -1,4 +1,4 @@
-var db = require('../db/db_connect');
+// var db = require('../db/db_connect');
 
 var user = {
     all: function(callback){

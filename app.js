@@ -41,6 +41,7 @@ router.get('/users/:id',function(req, res, next){
 //API user post method
 router.post('/user', function(req, res, next){
   user.add(req.body.user, function(err,count){
+    console.log(req.body);
     if(err){
       res.json(err);
     }
