@@ -6,7 +6,6 @@ block content
         .panel.panel-info
           .panel-heading
             .panel-title Sign In
-            // <div style="float:right; font-size: 80%; position: relative; top:-10px"><a href="#">Forgot password?</a></div>
           .panel-body(style='padding-top:30px')
             if (message.length > 0)
               .alert.alert-danger.col-sm-12 message
@@ -20,14 +19,7 @@ block content
                   i.glyphicon.glyphicon-lock
                 input#login-password.form-control(type='password', name='password', placeholder='password')
               .input-group
-                //
-                  <div class="checkbox">
-                  <label>
-                  <input id="login-remember" type="checkbox" name="remember" value="1"> Remember me
-                  </label>
-                  </div>
               .form-group(style='margin-top:10px')
-                // Button
                 .col-sm-12.controls
                   button#btn-login.btn.btn-success(type='submit') Login  
               .form-group
