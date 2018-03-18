@@ -1,23 +1,22 @@
 var db = require('../db/db_connect');
 
-var users = {
+var user = {
     all: function(callback){
         return db.query("SELECT * from users", callback);
     },
     byId: function(id, callback){
         return db.query("SELECT * from users WHERE id=?",[id], callback);
     },
-    add: function(users, callback){
-        return db.query("INSERT into users values(?,?,?,?,?,?)", [users.id,users.first_name,users.last_name,users.mob_no,users.user_name,users.password],callback);
+    add: function(user, callback){
+        return db.query("INSERT into users values(?,?,?,?,?)", [user.first_name,user.last_name,user.mob_no,user.user_name,user.password],callback);
     },
-    update: function(id, users, callback){
-        return db.query("UPDATE users set first_name=?, last_name=?, password=? WHERE id=?",[users.first_name,users.last_name,id], callback );
+    update: function(id, user, callback){
+        return db.query("UPDATE users set first_name=?, last_name=?, password=? WHERE id=?",[user.first_name,user.last_name,id], callback );
     },
     delete: function(id, callback){
         return db.query("DELETE * from users WHERE id=?", [id], callback);
     }
-
 };
 
-module.exports = users;
+module.exports = user;
 

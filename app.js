@@ -20,7 +20,7 @@ var user = require('./models/user');
 
 
 //API user get method
-router.get('/:id',function(req, res, next){
+router.get('/users/:id',function(req, res, next){
   if(req.params.id){
     user.byId(req.params.id,function(err, rows){
       if(err){
@@ -38,15 +38,16 @@ router.get('/:id',function(req, res, next){
   }
 });
 
-router.post('/', function(req, res, next) {  
-  user.add(req.body, function(err, count) {  
-      if (err) {  
-          res.json(err);  
-      } else {  
-          res.json(req.body); 
-      }  
-  });  
-});  
+//API user post method
+router.post('/user', function(req, res, next){
+  user.add(req.body.user, function(err,count){
+    if(err){
+      res.json(err);
+    }
+    res.json(req.body.user);
+  });
+
+});
 
 var index = require('./routes/index'),
     users = require('./routes/users');
