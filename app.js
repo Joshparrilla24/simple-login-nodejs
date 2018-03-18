@@ -5,14 +5,58 @@ var express = require('express'),
     cookieParser = require('cookie-parser'),
     bodyParser = require('body-parser'),
     session = require('express-session'),
-    sessVal = require('./sess.json');
+    sessVal = require('./sess');
+
+var app = express();
+
+// API routes
+var router = express.Router();  
+//api starts with /api
+app.use('/api', router);
 
 var connection = require('./db/db_connect');
+var user = require('./models/user');
+
+
+
+//API user get method
+router.get('/:id',function(req, res, next){
+  if(req.params.id){
+    user.byId(req.params.id,function(err, rows){
+      if(err){
+        res.json(err);
+      }
+      res.json(rows);
+    })
+  }else{
+    user.all(function(err, rows){
+      if(err){
+        res.json(err);
+      }
+      res.json(rows);
+    });
+  }
+});
+
+router.post('/', function(req, res, next) {  
+  user.add(req.body, function(err, count) {  
+      if (err) {  
+          res.json(err);  
+      } else {  
+          res.json(req.body); 
+      }  
+  });  
+});  
 
 var index = require('./routes/index'),
     users = require('./routes/users');
 
-var app = express();
+
+
+// //test route
+// router.get('/', function(req, res){
+//   res.json({message: 'Welcome to our API'});
+// });
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));

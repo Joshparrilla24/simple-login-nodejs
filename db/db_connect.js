@@ -1,5 +1,5 @@
 var mysql = require('mysql');
-var settings = require('./settings');
+var settings = require('./setting');
 var db;
 
 //create mysql connection
