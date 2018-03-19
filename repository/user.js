@@ -1,5 +1,5 @@
 var user = require('../models/user');
-//API user get method by id
+//API get user by id
 exports.ById = function(req, res, next){
     if(req.params.id){
         user.byId(req.params.id,function(err, rows){
@@ -10,7 +10,7 @@ exports.ById = function(req, res, next){
         });
     }
 };
-// API user get all users 
+// API get all users 
 exports.All = function(req,res, next){
     user.all(function(err, rows){
         if(err){
@@ -28,7 +28,7 @@ exports.Add = function(req, res, next){
         res.json(req.body.user);
     });
 };
-//API user update
+//API update user
 exports.Update = function(req, res, next){
     if(req.params.id){
         user.update(req.params.id,req.body.user,function(err, rows){
@@ -39,7 +39,7 @@ exports.Update = function(req, res, next){
         });
     }
 };
-//API user delete
+//API delete user
 exports.Delete = function(req, res, next){
     if(req.params.id){
         user.delete(req.params.id,function(err,count){
