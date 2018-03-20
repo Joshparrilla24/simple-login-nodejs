@@ -15,18 +15,19 @@ router.use(bodyParser.json());
 //api starts with /api
 app.use('/api', router);
 var connection = require('./db/db_connect');
+global.db = connection;
 
 var userRepo = require('./repository/user');
 
-// API routes
-router.get('/user/:id', userRepo.ById);
-router.get('/users', userRepo.All);
-router.post('/user', userRepo.Add);
-router.put('/user/:id', userRepo.Update);
-router.delete('/user/:id', userRepo.Delete);
+// // API routes
+// router.get('/user/:id', userRepo.ById);
+// router.get('/users', userRepo.All);
+// router.post('/user', userRepo.Add);
+// router.put('/user/:id', userRepo.Update);
+// router.delete('/user/:id', userRepo.Delete);
 
-var index = require('./routes/index'),
-    users = require('./routes/users');
+var index = require('./routes/home/index'),
+    users = require('./routes/signup/users');
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -42,9 +43,9 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(session(sessVal));
 
 app.use('/', index);
-app.use('/users', users);
+app.use(users);
 
-var renderer = require('./handler/renderer');
+var renderer = require('./handler/renderer'); 
 
 app.use(renderer.notFoundError);
 app.use(renderer.internalError);
