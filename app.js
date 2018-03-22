@@ -13,11 +13,11 @@ var router = express.Router();
 router.use(bodyParser.json()); 
 
 //api starts with /api
-app.use('/api', router);
+// app.use('/api', router);
 var connection = require('./db/db_connect');
 global.db = connection;
 
-var userRepo = require('./repository/user');
+// var userRepo = require('./repository/user');
 
 // // API routes
 // router.get('/user/:id', userRepo.ById);
@@ -27,7 +27,7 @@ var userRepo = require('./repository/user');
 // router.delete('/user/:id', userRepo.Delete);
 
 var index = require('./routes/home/index'),
-    users = require('./routes/signup/users');
+    users = require('./routes/registration');
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -42,8 +42,13 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(session(sessVal));
 
-app.use('/', index);
-app.use(users);
+app.get('/', index);
+app.get('/signup',users.SignUp);
+app.post('/signup',users.SignUp);
+app.get('/login', users.Login);
+app.post('/login', users.Login);
+app.get('/home/dashboard', users.DashBoard);
+app.get('/home/logout', users.Logout);
 
 var renderer = require('./handler/renderer'); 
 
