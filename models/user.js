@@ -15,6 +15,9 @@ var user = {
     },
     delete: function(id, callback){
         return db.query("DELETE from users WHERE id=?", [id], callback);
+    },
+    login: function(user, callback){
+        return db.query("SELECT * FROM users WHERE user_name=? AND password=?",[user.user_name,user.password], callback);
     }
 };
 
