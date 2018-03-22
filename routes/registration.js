@@ -49,7 +49,7 @@ exports.Login = function(req, res){
 //Dashboard
 exports.DashBoard = function(req, res){
     var user = req.session.user;
-    userId = req.session.userId;
+    var userId = req.session.userId;
     console.log("userid="+userId);
     if(userId===null){
         res.redirect('/login');
@@ -66,3 +66,16 @@ exports.Logout = function(req, res){
         res.redirect('/login');
     });
 }
+//Dashboard
+exports.Profile = function(req, res){
+    var user = req.session.user;
+    var userId = req.session.userId;
+    if(userId===null){
+        res.redirect('/login');
+        return;
+    }
+    var sql = "SELECT * FROM `users` WHERE id='"+userId+"'";
+    db.query(sql, function(err, result){
+        res.render('profile.pug',{data: result, user: user});
+    })
+};

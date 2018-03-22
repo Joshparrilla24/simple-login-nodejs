@@ -46,7 +46,8 @@ app.post('/signup',users.SignUp);
 app.get('/login', users.Login);
 app.post('/login', users.Login);
 app.get('/home/dashboard', users.DashBoard);
-app.get('/home/logout', users.Logout)
+app.get('/home/logout', users.Logout);
+app.get('/home/profile', users.Profile);
 
 app.use(renderer.notFoundError);
 app.use(renderer.internalError);
