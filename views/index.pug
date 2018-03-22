@@ -7,17 +7,17 @@ block content
           .panel-heading
             .panel-title Sign In
           .panel-body(style='padding-top:30px')
-            if (message.length > 0)
-              .alert.alert-danger.col-sm-12 message
+            -if (message.length > 0)
+              .alert.alert-danger.col-sm-12 #{message}
             form#loginform.form-horizontal(role='form', method='post', action='/login')
               .input-group(style='margin-bottom: 25px')
                 span.input-group-addon
                   i.glyphicon.glyphicon-user
-                input#login-username.form-control(type='text', name='user_name', value='', placeholder='username')
+                input#login-username.form-control(type='text', name='user_name', value='', placeholder='username', required)
               .input-group(style='margin-bottom: 25px')
                 span.input-group-addon
                   i.glyphicon.glyphicon-lock
-                input#login-password.form-control(type='password', name='password', placeholder='password')
+                input#login-password.form-control(type='password', name='password', placeholder='password',required)
               .input-group
               .form-group(style='margin-top:10px')
                 .col-sm-12.controls

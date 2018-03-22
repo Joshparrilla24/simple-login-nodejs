@@ -1,21 +1,22 @@
-var express = require('express'),
-    path = require('path'),
-    favicon = require('serve-favicon'),
-    logger = require('morgan'),
-    cookieParser = require('cookie-parser'),
-    bodyParser = require('body-parser'),
-    session = require('express-session'),
-    sessVal = require('./sess');
-
+var express = require('express');
+var path = require('path');
+var favicon = require('serve-favicon');
+var logger = require('morgan');
+var cookieParser = require('cookie-parser');
+var bodyParser = require('body-parser');
+var session = require('express-session');
+var sessVal = require('./sess');
 var app = express();
-
 var router = express.Router(); 
-router.use(bodyParser.json()); 
+// router.use(bodyParser.json()); 
+var index = require('./routes/home/index');
+var users = require('./routes/registration');
+var connection = require('./db/db_connect');
+var renderer = require('./handler/renderer'); 
+global.db = connection;
 
 //api starts with /api
 // app.use('/api', router);
-var connection = require('./db/db_connect');
-global.db = connection;
 
 // var userRepo = require('./repository/user');
 
@@ -25,9 +26,6 @@ global.db = connection;
 // router.post('/user', userRepo.Add);
 // router.put('/user/:id', userRepo.Update);
 // router.delete('/user/:id', userRepo.Delete);
-
-var index = require('./routes/home/index'),
-    users = require('./routes/registration');
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -42,15 +40,13 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(session(sessVal));
 
-app.get('/', index);
+app.get('/',index);
 app.get('/signup',users.SignUp);
 app.post('/signup',users.SignUp);
 app.get('/login', users.Login);
 app.post('/login', users.Login);
 app.get('/home/dashboard', users.DashBoard);
-app.get('/home/logout', users.Logout);
-
-var renderer = require('./handler/renderer'); 
+app.get('/home/logout', users.Logout)
 
 app.use(renderer.notFoundError);
 app.use(renderer.internalError);

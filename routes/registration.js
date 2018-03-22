@@ -1,7 +1,8 @@
 //Sign up
 exports.SignUp = function(req,res){
     var message = '';
-    if(req.method == 'POST'){
+    if(req.method == 'POST')
+    {
       var form = req.body;
       var username = form.user_name;
       var password = form.password;
@@ -16,10 +17,9 @@ exports.SignUp = function(req,res){
         res.render('signup.pug',{message: message});
       });
     }else{
-      res.render('signup',{message: message});
+      res.render('signup',{message:message});
     }
 };
-
 //Login
 exports.Login = function(req, res){
     var message = '';
@@ -37,11 +37,10 @@ exports.Login = function(req, res){
                 console.log(results[0].id);
                 res.redirect('/home/dashboard');
             }else{
+                message = 'incorrect username/password!'
                 res.render('index.pug',{message:message});
             }
         });
-
-
     }else{
         res.render('index.pug',{message:message});
     }
@@ -56,13 +55,11 @@ exports.DashBoard = function(req, res){
         res.redirect('/login');
         return;
     }
-
     var sql = "SELECT * FROM `users` WHERE id='"+userId+"'";
     db.query(sql, function(err, results){
         res.render('dashboard.pug',{user:user});
     });
 };
-
 //Logout
 exports.Logout = function(req, res){
     req.session.destroy(function(err){

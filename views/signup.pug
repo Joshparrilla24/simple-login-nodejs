@@ -14,32 +14,31 @@ html(lang='en')
               a#signinlink(href='/') Sign In
           .panel-body
             form.form-horizontal(role='form', method='post', action='/signup', onsubmit='return checkblank(this);')
-              if (message.length > 0) 
-                .alert.alert-danger.col-sm-12 
-                  message
+              -if (message.length > 0) 
+                .alert.alert-danger.col-sm-12 #{message}
               #signupalert.alert.alert-danger(style='display:none')
                 p Error:
                 span
               .form-group
                 label.col-md-3.control-label(for='first_name') First Name
                 .col-md-9
-                  input.form-control(type='text', name='first_name', placeholder='First Name')
+                  input.form-control(type='text', name='first_name', placeholder='First Name', required)
               .form-group
                 label.col-md-3.control-label(for='last_name') Last Name
                 .col-md-9
-                  input.form-control(type='text', name='last_name', placeholder='Last Name')
+                  input.form-control(type='text', name='last_name', placeholder='Last Name', required)
               .form-group
                 label.col-md-3.control-label(for='mob_no') Mobile Number
                 .col-md-9
-                  input.form-control(type='number', name='mob_no', placeholder='Mobile Number')
+                  input.form-control(type='number', name='mob_no', placeholder='Mobile Number', required)
               .form-group
                 label.col-md-3.control-label(for='user_name') User Name
                 .col-md-9
-                  input.form-control(type='text', name='user_name', placeholder='User Name')
+                  input.form-control(type='text', name='user_name', placeholder='User Name', required)
               .form-group
                 label.col-md-3.control-label(for='password') Password
                 .col-md-9
-                  input.form-control(type='password', name='password', placeholder='Password')
+                  input.form-control(type='password', name='password', placeholder='Password', required)
               .form-group
                 // Button
                 .col-md-offset-3.col-md-9
