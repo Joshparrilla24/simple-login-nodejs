@@ -1,3 +1,4 @@
+
 var model = require('../models/user');
 
 exports.SignUp = function(req, res){
@@ -12,14 +13,22 @@ exports.SignUp = function(req, res){
             password: form.password
         };
         model.add(user,function(err,result){
-            message = 'Account created successfully! Proceed to login';
-            console.log(message);
-            res.render('signup.pug', {message: message});
+            if(err){
+                console.log(err);
+                message = 'Error on submit!';
+                res.render('signup.pug', {message: message});
+            }else{
+                message = 'Account created successfully!';
+                res.render('index.pug',{message: message});
+            }
         });
+
     }else{
-       res.render('signup.pug',{message: message}); 
+        message='';
+        res.render('signup',{message: message}); 
     }
 };
+
 exports.Login = function(req, res){
     var message = '';
     var session = req.session;
@@ -36,14 +45,17 @@ exports.Login = function(req, res){
                 console.log(results[0].id,results[0]);
                 res.redirect('/home/dashboard');
             }else{
+                console.log(err);
                 message = 'incorrect username/password!'
                 res.render('index.pug',{message:message});
             }
         });
     }else{
+        message = '';
         res.render('index.pug',{message:message});
     }
 };
+
 exports.DashBoard = function(req, res){
     var user = req.session.user;
     var userId = req.session.userId;
@@ -56,11 +68,13 @@ exports.DashBoard = function(req, res){
         res.render('dashboard.pug',{user:user});
     });
 };
+
 exports.Logout = function(req, res){
     req.session.destroy(function(err){
         res.redirect('/login');
     });
 }
+
 exports.Profile = function(req, res){
     var user = req.session.user;
     var userId = req.session.userId;
