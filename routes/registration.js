@@ -8,7 +8,7 @@ exports.SignUp = function(req, res){
         model.add(user,function(err,result){
             if(err){
                 console.log(err);
-                message = "username already exist";
+                message = err.message;
                 res.render('signup.pug', {message: message});
             }else{
                 message = 'Account created successfully!';
@@ -33,7 +33,7 @@ exports.Login = function(req, res){
                 console.log(results[0].id,results[0]);
                 res.redirect('/home/dashboard');
             }else{
-                message = 'incorrect username/password!'
+                message = 'incorrect username/password';
                 res.render('index.pug',{message:message});
             }
         });
@@ -58,7 +58,7 @@ exports.DashBoard = function(req, res){
 
 exports.Logout = function(req, res){
     req.session.destroy(function(err){
-        res.redirect('/login');
+        res.redirect('/');
     });
 }
 
@@ -66,7 +66,7 @@ exports.Profile = function(req, res){
     var user = req.session.user;
     var userId = req.session.userId;
     if(userId===null){
-        res.redirect('/login');
+        res.redirect('/');
         return;
     }
     model.byId(userId,function(err,result){
