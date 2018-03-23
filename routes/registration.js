@@ -15,7 +15,7 @@ exports.SignUp = function(req, res){
         model.add(user,function(err,result){
             if(err){
                 console.log(err);
-                message = 'Error on submit!';
+                message = "username already exist";
                 res.render('signup.pug', {message: message});
             }else{
                 message = 'Account created successfully!';
