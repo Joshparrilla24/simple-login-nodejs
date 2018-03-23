@@ -4,14 +4,7 @@ var model = require('../models/user');
 exports.SignUp = function(req, res){
     var message = '';
     if(req.method=='POST'){
-        var form = req.body;
-        var user = {
-            first_name: form.first_name,
-            last_name: form.last_name,
-            mob_no: form.mob_no,
-            user_name: form.user_name,
-            password: form.password
-        };
+        var user = req.body;
         model.add(user,function(err,result){
             if(err){
                 console.log(err);
@@ -22,7 +15,6 @@ exports.SignUp = function(req, res){
                 res.render('index.pug',{message: message});
             }
         });
-
     }else{
         message='';
         res.render('signup',{message: message}); 
@@ -33,11 +25,7 @@ exports.Login = function(req, res){
     var message = '';
     var session = req.session;
     if(req.method = 'POST'){
-        var form = req.body;
-        var user = {
-            user_name: form.user_name,
-            password: form.password
-        };
+        var user = req.body;
         model.login(user,function(err, results){
             if(results.length){
                 req.session.userId = results[0].id;
@@ -45,13 +33,12 @@ exports.Login = function(req, res){
                 console.log(results[0].id,results[0]);
                 res.redirect('/home/dashboard');
             }else{
-                console.log(err);
                 message = 'incorrect username/password!'
                 res.render('index.pug',{message:message});
             }
         });
     }else{
-        res.render('index.pug',{message:''});
+        res.render('index.pug',{message:message});
     }
     
 };
