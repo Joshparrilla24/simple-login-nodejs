@@ -51,9 +51,9 @@ exports.Login = function(req, res){
             }
         });
     }else{
-        message = '';
-        res.render('index.pug',{message:message});
+        res.render('index.pug',{message:''});
     }
+    
 };
 
 exports.DashBoard = function(req, res){
