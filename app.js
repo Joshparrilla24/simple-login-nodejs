@@ -8,24 +8,15 @@ var session = require('express-session');
 var sessVal = require('./sess');
 var app = express();
 var router = express.Router(); 
-// router.use(bodyParser.json()); 
 var index = require('./routes/home/index');
-var users = require('./routes/registration');
+var registration = require('./routes/registratioin/index');
+var userLogin = require('./routes/session/login/index');
+var userLogout = require('./routes/session/logout/index');
+var userDash = require('./routes/dashboard/index');
+var userProf = require('./routes/profile/index');
 var connection = require('./db/db_connect');
 var renderer = require('./handler/renderer'); 
 global.db = connection;
-
-//api starts with /api
-// app.use('/api', router);
-
-// var userRepo = require('./repository/user');
-
-// // API routes
-// router.get('/user/:id', userRepo.ById);
-// router.get('/users', userRepo.All);
-// router.post('/user', userRepo.Add);
-// router.put('/user/:id', userRepo.Update);
-// router.delete('/user/:id', userRepo.Delete);
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -41,13 +32,13 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(session(sessVal));
 
 app.get('/',index);
-app.get('/signup',users.SignUp);
-app.post('/signup',users.SignUp);
-app.get('/login', users.Login);
-app.post('/login', users.Login);
-app.get('/home/dashboard', users.DashBoard);
-app.get('/home/logout', users.Logout);
-app.get('/home/profile', users.Profile);
+app.get('/signup', registration.SignUp);
+app.post('/signup', registration.SignUp);
+app.get('/login', userLogin.Login);
+app.post('/login', userLogin.Login);
+app.get('/home/logout', userLogout.Logout);
+app.get('/home/dashboard', userDash.DashBoard);
+app.get('/home/profile', userProf.Profile);
 
 app.use(renderer.notFoundError);
 app.use(renderer.internalError);
